@@ -151,7 +151,7 @@ async function _search(numero, path) {
 
 
     } catch (e) {
-        log("An error has occured")
+        log("An error has occured", e)
     }
 
 }
