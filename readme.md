@@ -7,6 +7,12 @@ All **comments** and **improvements** are welcome.
 	$ npm i fihirana_cli 
 ```
 
+
+### Run 
+```javascript
+	$ npx fihirana_cli 
+```
+
 ### Usage
 
 https://user-images.githubusercontent.com/67300916/230795531-f25b4820-50c6-4a47-aa24-f275232d069c.mp4
