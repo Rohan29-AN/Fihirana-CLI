@@ -4,18 +4,18 @@ import inquirer from 'inquirer';
 import figlet from 'figlet';
 import chalk from 'chalk';
 import gradient from 'gradient-string';
+import fs from 'fs'
 
 
 const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
-const title = "FIHIRANAKO"
 
 //TimeOut 2s
-const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
 const log = console.log;
 
 async function welcome() {
     console.clear();
-    figlet(`NY FIHIRANAKO`, (err, data) => {
+    figlet(`FIHIRANA CLI`, (err, data) => {
         console.log(gradient.pastel.multiline(data) + '\n');
     });
 
@@ -46,7 +46,8 @@ async function welcome() {
     }
 
     const _numero = await _lyricsId()
-    log("Hira ho jerena", _numero)
+    await sleep()
+    await _search(_numero, _fileToUse)
 
 }
 
@@ -62,6 +63,37 @@ async function _lyricsId() {
     })
     return _num.numero
 }
+
+
+
+async function _search(numero, path) {
+    fs.readFile(path, 'utf-8', (err, data) => {
+        if (err) {
+            log("An error has occurred")
+            return
+        } else {
+            const jsonData = JSON.parse(data)
+            const resultat = jsonData[numero].hira
+
+            const number_verse = resultat.length
+
+            for (let i = 0; i < number_verse; i++) {
+
+                //Check if the part is not a verse
+                var title = (resultat[i].fiverenany == false) ? chalk.green(`Andininy ${resultat[i].andininy} `) : chalk.yellow(`Fiv:`);
+
+                //Header
+                log(title)
+
+                //Content
+                log(resultat[i].tononkira, "\n")
+
+            }
+        }
+    })
+}
+
+
 
 
 async function main() {
