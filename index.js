@@ -22,17 +22,24 @@ async function welcome() {
 
     await sleep();
 
-    log("\n \nTongasoa eto @ Ny Fihiranako")
+    log("\n Tongasoa eto @ Ny Fihiranako")
 
     const question = await inquirer.prompt({
         name: 'user_choice',
-        message: "Safidio ny sokajy tianao ho tadiavina",
+        message: "Inona ny sokajy tianao ho jerana ?",
         choices: categorie,
         type: 'list'
     })
 
-    let User_Choice = question.user_choice
+    let _userChoice = question.user_choice
 
+    if (_userChoice === 'FFPM') {
+        log("ffpm")
+    } else if (_userChoice === 'FIHIRANA FANAMPINY') {
+
+    } else {
+
+    }
 
     log("User choice", question.user_choice)
 }
