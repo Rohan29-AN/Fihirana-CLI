@@ -17,6 +17,7 @@
         "FIHIRANA",
         "MALAGASY"
     ],
+    "bin": "./index.js",
     "author": "Rohan29",
     "license": "ISC",
     "dependencies": {
