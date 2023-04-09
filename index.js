@@ -17,18 +17,29 @@ async function welcome() {
     console.clear();
     figlet(`NY FIHIRANAKO`, (err, data) => {
         console.log(gradient.pastel.multiline(data) + '\n');
-        process.exit(0);
     });
 
 
     await sleep();
 
-    log("\n \n \n \n \nTongasoa eto @ Ny Fihiranako")
+    log("\n \nTongasoa eto @ Ny Fihiranako")
+
+    const question = await inquirer.prompt({
+        name: 'user_choice',
+        message: "Safidio ny sokajy tianao ho tadiavina",
+        choices: categorie,
+        type: 'list'
+    })
+
+    let User_Choice = question.user_choice
+
+
+    log("User choice", question.user_choice)
 }
 
 
 async function main() {
-    console.clear();
+    //  console.clear();
     await welcome();
 
 }
