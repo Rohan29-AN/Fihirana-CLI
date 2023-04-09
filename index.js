@@ -18,8 +18,9 @@ const log = console.log;
 
 async function welcome() {
     console.clear();
-    figlet(`FIHIRANA CLI`, (err, data) => {
-        console.log(gradient.pastel.multiline(data) + '\n');
+    figlet(`FIHIRANA -CLI`, (err, data) => {
+        //   console.log(gradient.pastel.multiline(data) + '\n');
+        console.log(gradient.retro.multiline(data) + '\n');
     });
 
 
@@ -109,6 +110,7 @@ async function _search(numero, path) {
             log(resultat[i].tononkira, "\n")
 
         }
+
 
     } catch (e) {
         log("An error has occured")
