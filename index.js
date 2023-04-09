@@ -12,6 +12,14 @@ import { rejects } from 'assert';
 
 const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
 
+
+const page_max = {
+    "FFPM": 819,
+    "FIHIRANA FANAMPINY": 54,
+    "ANTEMA": 24
+}
+
+
 //TimeOut 2s
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 const log = console.log;
@@ -25,8 +33,6 @@ async function welcome() {
 
 
     await sleep();
-
-    log("\n Tongasoa eto @ Ny Fihiranako \n")
 
     const question = await inquirer.prompt({
         name: 'user_choice',
@@ -49,23 +55,53 @@ async function welcome() {
         _fileToUse = 'assets/03_antema.json'
     }
 
-    const _numero = await _lyricsId()
+    const _numero = await _lyricsId(page_max[_userChoice])
 
     await _search(_numero, _fileToUse)
 
 }
 
 
-async function _lyricsId() {
+async function _lyricsId(max) {
     const _num = await inquirer.prompt({
         name: 'numero',
-        message: '\nLaharana hira ho tadiavina : ',
+        message: `\nLaharana hira ho tadiavina  (1 hatramin'ny ${max}): `,
         type: 'input',
-        default () {
-            return null
+        default: null,
+        validate: (input) => {
+            const num = parseInt(input)
+                //Check if the input isn't a number
+            if (!Number.isInteger(num)) {
+                return "Hamarino ny laharana ampidirinao azafady"
+            } else if (num < 1 || num > max) {
+                return "Tsy misy hira mifanaraka @ laharana nampidirinao"
+            } else {
+                return true
+            }
         }
     })
     return _num.numero
+}
+
+async function drawTheScreen() {
+    console.clear();
+    await welcome();
+}
+
+async function _closeTerminal() {
+    const _response = await inquirer.prompt({
+        name: "response",
+        message: "Hitady hira hafa",
+        type: 'confirm',
+
+    })
+    if (_response.response == true) {
+
+        drawTheScreen()
+    } else {
+        log("Misaotra anao nampiasa ny Fihirana CLI")
+        process.exit(0)
+    }
 }
 
 
@@ -111,6 +147,8 @@ async function _search(numero, path) {
 
         }
 
+        _closeTerminal()
+
 
     } catch (e) {
         log("An error has occured")
@@ -122,8 +160,7 @@ async function _search(numero, path) {
 
 
 async function main() {
-    //  console.clear();
-    await welcome();
+    drawTheScreen()
 
 }
 
