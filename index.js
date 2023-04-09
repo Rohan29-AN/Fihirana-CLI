@@ -8,7 +8,11 @@ import fs from 'fs'
 import { createSpinner } from 'nanospinner';
 import { resolve } from 'path';
 import { rejects } from 'assert';
+import { fileURLToPath } from 'url';
 import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(
+    import.meta.url));
 
 const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
 
@@ -48,13 +52,16 @@ async function welcome() {
     let _fileToUse = '';
 
     if (_userChoice === 'FFPM') {
-        _fileToUse = './assets/01_fihirana_ffpm.json'
+        // _fileToUse = './assets/01_fihirana_ffpm.json'
+        _fileToUse = path.join(__dirname, 'assets', '01_fihirana_ffpm.json');
         log("ffpm")
     } else if (_userChoice === 'FIHIRANA FANAMPINY') {
-        _fileToUse = './assets/02_fihirana_fanampiny.json'
+        // _fileToUse = './assets/02_fihirana_fanampiny.json'
+        _fileToUse = path.join(__dirname, 'assets', '02_fihirana_fanampiny.json');
 
     } else {
-        _fileToUse = './assets/03_antema.json'
+        //_fileToUse = './assets/03_antema.json'
+        _fileToUse = path.join(__dirname, 'assets', '03_antema.json');
     }
 
     const _numero = await _lyricsId(page_max[_userChoice])
