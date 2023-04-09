@@ -1,6 +1,6 @@
 {
     "name": "fihirana_cli",
-    "version": "0.0.9",
+    "version": "1.0.2",
     "description": "This package allows you to search for lyrics \"Fihirana ffpm / Fihirana fanampiny / Antema \" in a cli",
     "main": "index.js",
     "type": "module",
@@ -16,6 +16,12 @@
         "FANAMPINY",
         "FIHIRANA",
         "MALAGASY"
+    ],
+
+    "files": [
+        "assets/01_fihirana_ffpm.json",
+        "assets/02_fihirana_fanampiny.json",
+        "assets/03_antema.json"
     ],
     "bin": "./index.js",
     "author": "Rohan29",

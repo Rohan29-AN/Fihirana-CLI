@@ -8,7 +8,7 @@ import fs from 'fs'
 import { createSpinner } from 'nanospinner';
 import { resolve } from 'path';
 import { rejects } from 'assert';
-
+import path from 'path';
 
 const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
 
@@ -18,6 +18,8 @@ const page_max = {
     "FIHIRANA FANAMPINY": 54,
     "ANTEMA": 24
 }
+
+
 
 
 //TimeOut 2s
@@ -46,13 +48,13 @@ async function welcome() {
     let _fileToUse = '';
 
     if (_userChoice === 'FFPM') {
-        _fileToUse = 'assets/01_fihirana_ffpm.json'
+        _fileToUse = './assets/01_fihirana_ffpm.json'
         log("ffpm")
     } else if (_userChoice === 'FIHIRANA FANAMPINY') {
-        _fileToUse = 'assets/02_fihirana_fanampiny.json'
+        _fileToUse = './assets/02_fihirana_fanampiny.json'
 
     } else {
-        _fileToUse = 'assets/03_antema.json'
+        _fileToUse = './assets/03_antema.json'
     }
 
     const _numero = await _lyricsId(page_max[_userChoice])
