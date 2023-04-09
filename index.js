@@ -5,12 +5,15 @@ import figlet from 'figlet';
 import chalk from 'chalk';
 import gradient from 'gradient-string';
 import fs from 'fs'
+import { createSpinner } from 'nanospinner';
+import { resolve } from 'path';
+import { rejects } from 'assert';
 
 
 const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
 
 //TimeOut 2s
-const sleep = (ms = 1000) => new Promise((r) => setTimeout(r, ms));
+const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 const log = console.log;
 
 async function welcome() {
@@ -46,7 +49,7 @@ async function welcome() {
     }
 
     const _numero = await _lyricsId()
-    await sleep()
+
     await _search(_numero, _fileToUse)
 
 }
@@ -67,30 +70,50 @@ async function _lyricsId() {
 
 
 async function _search(numero, path) {
-    fs.readFile(path, 'utf-8', (err, data) => {
-        if (err) {
-            log("An error has occurred")
-            return
-        } else {
-            const jsonData = JSON.parse(data)
-            const resultat = jsonData[numero].hira
+    try {
+        const data = await new Promise((resolve, reject) => {
+            fs.readFile(path, 'utf-8', async(err, data) => {
+                if (err) {
+                    reject(data)
+                } else {
+                    resolve(data)
+                }
+            })
+        });
 
-            const number_verse = resultat.length
+        const jsonData = JSON.parse(data)
+        const resultat = jsonData[numero].hira
 
-            for (let i = 0; i < number_verse; i++) {
+        const number_verse = resultat.length
 
-                //Check if the part is not a verse
-                var title = (resultat[i].fiverenany == false) ? chalk.green(`Andininy ${resultat[i].andininy} `) : chalk.yellow(`Fiv:`);
+        //Loader
+        const spinner = createSpinner('Miandrasa kely vetivety\n').start()
 
-                //Header
-                log(title)
+        setTimeout(() => {
+            spinner.success()
+        }, 1500)
 
-                //Content
-                log(resultat[i].tononkira, "\n")
+        await sleep();
 
-            }
+        spinner.clear()
+
+        for (let i = 0; i < number_verse; i++) {
+
+            //Check if the part is not a verse
+            var title = (resultat[i].fiverenany == false) ? chalk.green(`Andininy ${resultat[i].andininy} `) : chalk.yellow(`Fiv:`);
+
+            //Header
+            log(title)
+
+            //Content
+            log(resultat[i].tononkira, "\n")
+
         }
-    })
+
+    } catch (e) {
+        log("An error has occured")
+    }
+
 }
 
 
