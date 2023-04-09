@@ -20,7 +20,9 @@
     "author": "Rohan29",
     "license": "ISC",
     "dependencies": {
+        "chalk": "^5.2.0",
         "figlet": "^1.6.0",
+        "gradient-string": "^2.0.2",
         "inquirer": "^8.0.0"
     }
 }
