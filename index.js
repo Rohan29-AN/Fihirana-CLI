@@ -22,7 +22,7 @@ async function welcome() {
 
     await sleep();
 
-    log("\n Tongasoa eto @ Ny Fihiranako")
+    log("\n Tongasoa eto @ Ny Fihiranako \n")
 
     const question = await inquirer.prompt({
         name: 'user_choice',
@@ -33,15 +33,34 @@ async function welcome() {
 
     let _userChoice = question.user_choice
 
+    let _fileToUse = '';
+
     if (_userChoice === 'FFPM') {
+        _fileToUse = 'assets/01_fihirana_ffpm.json'
         log("ffpm")
     } else if (_userChoice === 'FIHIRANA FANAMPINY') {
+        _fileToUse = 'assets/02_fihirana_fanampiny.json'
 
     } else {
-
+        _fileToUse = 'assets/03_antema.json'
     }
 
-    log("User choice", question.user_choice)
+    const _numero = await _lyricsId()
+    log("Hira ho jerena", _numero)
+
+}
+
+
+async function _lyricsId() {
+    const _num = await inquirer.prompt({
+        name: 'numero',
+        message: '\nLaharana hira ho tadiavina : ',
+        type: 'input',
+        default () {
+            return null
+        }
+    })
+    return _num.numero
 }
 
 
