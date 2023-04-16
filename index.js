@@ -8,7 +8,13 @@ import fs from 'fs'
 import { createSpinner } from 'nanospinner';
 import { resolve } from 'path';
 import { rejects } from 'assert';
+import { fileURLToPath } from 'url';
 import path from 'path';
+
+const __filename = fileURLToPath(
+    import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
 
@@ -29,7 +35,6 @@ const log = console.log;
 async function welcome() {
     console.clear();
     figlet(`FIHIRANA -CLI`, (err, data) => {
-        //   console.log(gradient.pastel.multiline(data) + '\n');
         console.log(gradient.retro.multiline(data) + '\n');
     });
 
@@ -48,21 +53,25 @@ async function welcome() {
     let _fileToUse = '';
 
     let _prefix = '';
-    console.log("TEST===>", process.cwd())
+
+
+    const __filename = fileURLToPath(
+        import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    //path that contains the Assets folder
+    let path_origine = __dirname + "/assets"
+
     if (_userChoice === 'FFPM') {
-        //_fileToUse = './assets/01_fihirana_ffpm.json'
-        _fileToUse = path.join(process.cwd(), 'assets', '01_fihirana_ffpm.json');
+        _fileToUse = path.resolve(process.cwd(), path_origine, '01_fihirana_ffpm.json');
         _prefix = 'ffpm_'
 
     } else if (_userChoice === 'FIHIRANA FANAMPINY') {
-        // _fileToUse = './assets/02_fihirana_fanampiny.json'
-        _fileToUse = path.join(process.cwd(), 'assets', '02_fihirana_fanampiny.json');
-        // console.log("TEST", process.cwd())
+        _fileToUse = path.resolve(process.cwd(), path_origine, '02_fihirana_fanampiny.json');
         _prefix = 'ff_'
 
     } else {
-        //_fileToUse = './assets/03_antema.json'
-        _fileToUse = path.join(process.cwd(), 'assets', '03_antema.json');
+        _fileToUse = path.resolve(process.cwd(), path_origine, '03_antema.json');
         _prefix = 'antema_'
     }
 
@@ -166,7 +175,6 @@ async function _search(_prefix, numero, path) {
     }
 
 }
-
 
 
 
