@@ -48,7 +48,7 @@ async function welcome() {
     let _fileToUse = '';
 
     let _prefix = '';
-
+    console.log("TEST===>", process.cwd())
     if (_userChoice === 'FFPM') {
         //_fileToUse = './assets/01_fihirana_ffpm.json'
         _fileToUse = path.join(process.cwd(), 'assets', '01_fihirana_ffpm.json');
@@ -57,6 +57,7 @@ async function welcome() {
     } else if (_userChoice === 'FIHIRANA FANAMPINY') {
         // _fileToUse = './assets/02_fihirana_fanampiny.json'
         _fileToUse = path.join(process.cwd(), 'assets', '02_fihirana_fanampiny.json');
+        // console.log("TEST", process.cwd())
         _prefix = 'ff_'
 
     } else {
