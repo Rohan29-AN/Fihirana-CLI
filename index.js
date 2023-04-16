@@ -47,22 +47,27 @@ async function welcome() {
 
     let _fileToUse = '';
 
+    let _prefix = '';
+
     if (_userChoice === 'FFPM') {
-        // _fileToUse = './assets/01_fihirana_ffpm.json'
+        //_fileToUse = './assets/01_fihirana_ffpm.json'
         _fileToUse = path.join(process.cwd(), 'assets', '01_fihirana_ffpm.json');
-        log("ffpm")
+        _prefix = 'ffpm_'
+
     } else if (_userChoice === 'FIHIRANA FANAMPINY') {
         // _fileToUse = './assets/02_fihirana_fanampiny.json'
         _fileToUse = path.join(process.cwd(), 'assets', '02_fihirana_fanampiny.json');
+        _prefix = 'ff_'
 
     } else {
         //_fileToUse = './assets/03_antema.json'
         _fileToUse = path.join(process.cwd(), 'assets', '03_antema.json');
+        _prefix = 'antema_'
     }
 
     const _numero = await _lyricsId(page_max[_userChoice])
 
-    await _search(_numero, _fileToUse)
+    await _search(_prefix, _numero, _fileToUse)
 
 }
 
@@ -111,7 +116,7 @@ async function _closeTerminal() {
 
 
 
-async function _search(numero, path) {
+async function _search(_prefix, numero, path) {
     try {
         const data = await new Promise((resolve, reject) => {
             fs.readFile(path, 'utf-8', async(err, data) => {
@@ -122,9 +127,9 @@ async function _search(numero, path) {
                 }
             })
         });
-
+        const _key = _prefix + numero
         const jsonData = JSON.parse(data)
-        const resultat = jsonData[numero].hira
+        const resultat = jsonData[_key].hira
 
         const number_verse = resultat.length
 
