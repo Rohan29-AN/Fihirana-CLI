@@ -20,7 +20,7 @@ const categorie = ["FFPM", "FIHIRANA FANAMPINY", "ANTEMA"]
 
 
 const page_max = {
-    "FFPM": 819,
+    "FFPM": 827,
     "FIHIRANA FANAMPINY": 54,
     "ANTEMA": 24
 }
